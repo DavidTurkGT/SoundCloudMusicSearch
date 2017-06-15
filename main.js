@@ -74,13 +74,23 @@ function addTracks(artist, tracksArray){
   let resultsContainer = document.querySelector(".results");
   console.log("childNodes[0] when nothing is there...",resultsContainer.childNodes[0]);
 
-  if (resultsContainer.childNodes[0] === undefined) {
-    let heading = document.createElement("h4");
-    heading.textContent = "Search Results: " + query;
-    resultsContainer.appendChild(heading);
-  }
-  else {
-    resultsContainer.childNodes[0].textContent = "Search Results: " + query;
+  //Removes all previous search results display
+  while( resultsContainer.hasChildNodes() ){
+    resultsContainer.removeChild(resultsContainer.lastChild);
   }
 
+  let heading = document.createElement("h4");
+  heading.textContent = "Search Results: " + query;
+  resultsContainer.appendChild(heading);
+
+  let ul = document.createElement("ul");
+
+  //Add Track listings
+  for(let i = 0; i < tracksArray.length; i++){
+    let li = document.createElement("li");
+    li.textContent = tracksArray[i].title;
+    ul.appendChild(li);
+  }
+
+  resultsContainer.appendChild(ul);
 }
