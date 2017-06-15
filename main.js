@@ -16,18 +16,14 @@
 
 // 5. Create a way to listen for a click that will play the song in the audio play
 
-// let search = document.querySelector("#search_button");
-// search.addEventListener("click",function(){
-// });
 
 let form = document.querySelector(".search-form");
-form.addEventListener("submit",function(event){
-  event.preventDefault();
-})
+form.addEventListener("submit",function(event){ event.preventDefault(); });
 
 function searchArtist(){
   let query = document.querySelector("#query").value;
   console.log("You want to search for: ",query);
+  fetchData(query)
 }
 
 function fetchData(query){
@@ -41,6 +37,7 @@ function fetchData(query){
           return;
         }
         response.json().then(function(data){
+          console.log("First artist is: ",data[0]);
           let newURL = data[0].uri + "/tracks.json?client_id="+clientID;
           fetch(newURL).then(
             function(tracksResponse){
@@ -48,7 +45,8 @@ function fetchData(query){
                 return;
               }
               tracksResponse.json().then(function(tracks){
-                addTracks(tracks);
+                console.log("Track listings",tracks);
+                addTracks(data[0], tracks);
               })
             },
             function(tracksReject){
@@ -64,8 +62,15 @@ function fetchData(query){
   );
 }
 
-function addTracks(trackArray){
-  
+function addTracks(artist, tracksArray){
+  console.log("Artist received:",artist);
+  console.log("Tracks to add:",tracksArray);
+  let resultsContainer = document.querySelector(".results");
+
+  let heading = document.createElement("h4");
+  heading.textContent = "Searh Results: " + artist.full_name;
+  console.log("heading created:",heading);
+  resultsContainer.appendChild(heading);
 }
 
-fetchData("Paul Rudd");
+// fetchData("Paul Rudd");
