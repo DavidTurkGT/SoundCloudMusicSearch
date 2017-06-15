@@ -21,7 +21,9 @@ let form = document.querySelector(".search-form");
 form.addEventListener("submit",function(event){ event.preventDefault(); });
 
 function searchArtist(){
-  let query = document.querySelector("#query").value;
+  let inputField = document.querySelector("#query");
+  console.log("inputField",inputField);
+  let query = inputField.value;
   console.log("You want to search for: ",query);
   fetchData(query)
 }
@@ -63,14 +65,22 @@ function fetchData(query){
 }
 
 function addTracks(artist, tracksArray){
+  let inputField = document.querySelector("#query");
+  let query = inputField.value;
+  inputField.value="";
+
   console.log("Artist received:",artist);
   console.log("Tracks to add:",tracksArray);
   let resultsContainer = document.querySelector(".results");
+  console.log("childNodes[0] when nothing is there...",resultsContainer.childNodes[0]);
 
-  let heading = document.createElement("h4");
-  heading.textContent = "Searh Results: " + artist.full_name;
-  console.log("heading created:",heading);
-  resultsContainer.appendChild(heading);
+  if (resultsContainer.childNodes[0] === undefined) {
+    let heading = document.createElement("h4");
+    heading.textContent = "Search Results: " + query;
+    resultsContainer.appendChild(heading);
+  }
+  else {
+    resultsContainer.childNodes[0].textContent = "Search Results: " + query;
+  }
+
 }
-
-// fetchData("Paul Rudd");
