@@ -97,7 +97,7 @@ function addArtists(artistArray){
 
     let img = document.createElement("img");
     img.classList.add("artist-image");
-    img.src = artistArray[i].avatar_url;
+    img.src = artistArray[i].avatar_url ? artistArray[i].avatar_url : "missing-avatar.png";
     div.appendChild(img);
 
     let h4 = document.createElement("h4");
@@ -152,7 +152,7 @@ function addTracks(tracksArray){
 
     let img = document.createElement("img");
     img.classList.add("track-image");
-    img.src = tracksArray[i].artwork_url;
+    img.src = tracksArray[i].artwork_url ? tracksArray[i].artwork_url : "missing-track-image.png";
     div.appendChild(img);
 
     let h4 = document.createElement("h4");
