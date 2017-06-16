@@ -100,5 +100,27 @@ function addTracks(artist, tracksArray){
 }
 
 function playSong(title){
-  console.log("You want to play the song", title);
+  let clientID = "8538a1744a7fdaa59981232897501e04";
+
+  console.log("Attempting to play a song...");
+  let audioPlayer = document.querySelector("audio");
+  console.log(audioPlayer);
+  fetch("https://api.soundcloud.com/tracks/296167727/stream?client_id="+clientID).then(
+    function(response){
+      console.log("Ready to play music...maybe...");
+      console.log("Response received:");
+      console.log(response);
+      audioPlayer.src = response.url;
+      audioPlayer.play();
+      console.log("Processing Data...");
+      // response.blob().then(function(song){
+      //   console.log("Data processed:");
+      //   console.log(song);
+      //   audioPlayer.src = song;
+      // })
+    },
+    function(reject){
+      console.log("API request rejected");
+    }
+  )
 }
