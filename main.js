@@ -74,7 +74,7 @@ function addTracks(artist, tracksArray){
     let li = document.createElement("li");
 
     let div = document.createElement("div");
-    div.id = tracksArray[i].title;
+    div.id = tracksArray[i].stream_url;
     div.addEventListener("click", function(){
       playSong(event.target.id);
     });
@@ -99,13 +99,13 @@ function addTracks(artist, tracksArray){
   resultsContainer.appendChild(ul);
 }
 
-function playSong(title){
+function playSong(song_URL){
   let clientID = "8538a1744a7fdaa59981232897501e04";
 
   console.log("Attempting to play a song...");
   let audioPlayer = document.querySelector("audio");
   console.log(audioPlayer);
-  fetch("https://api.soundcloud.com/tracks/296167727/stream?client_id="+clientID).then(
+  fetch(song_URL+"?client_id="+clientID).then(
     function(response){
       console.log("Ready to play music...maybe...");
       console.log("Response received:");
