@@ -1,7 +1,3 @@
-
-// 5. Create a way to listen for a click that will play the song in the audio play
-
-
 let form = document.querySelector(".search-form");
 form.addEventListener("submit",function(event){ event.preventDefault(); });
 
