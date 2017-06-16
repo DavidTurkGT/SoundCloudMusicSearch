@@ -67,6 +67,7 @@ function addTracks(artist, tracksArray){
   heading.textContent = "Search Results: " + query + " (" + tracksArray.length + " results displayed)";
   resultsContainer.appendChild(heading);
 
+
   let ul = document.createElement("ul");
 
   //Add Track listings
@@ -75,6 +76,7 @@ function addTracks(artist, tracksArray){
 
     let div = document.createElement("div");
     div.id = tracksArray[i].stream_url;
+    div.classList.add("track-container")
     div.addEventListener("click", function(){
       playSong(event.target.id);
     });
@@ -113,11 +115,6 @@ function playSong(song_URL){
       audioPlayer.src = response.url;
       audioPlayer.play();
       console.log("Processing Data...");
-      // response.blob().then(function(song){
-      //   console.log("Data processed:");
-      //   console.log(song);
-      //   audioPlayer.src = song;
-      // })
     },
     function(reject){
       console.log("API request rejected");

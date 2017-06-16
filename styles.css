@@ -1,3 +1,33 @@
 body {
   background-color: #60d9f1;
 }
+
+li div{
+  border: 1px solid;
+}
+
+li div:hover{
+  box-shadow: 0px 10px 10px #ddd;
+}
+
+li div:active{
+  transform: translateY(2px);
+}
+
+img{
+  height: 20vh;
+  width: auto;
+  margin: 0.25rem;
+}
+
+ul{
+  display: flex;
+  overflow-x: scroll;
+  list-style: none;
+  text-align: center;
+}
+
+li {
+    margin: 0.25rem;
+    padding: 0 0.25rem;
+}
