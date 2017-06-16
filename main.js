@@ -1,18 +1,3 @@
-/*
-  Here is a guide for the steps you could take:
-*/
-
-// 1. First select and store the elements you'll be working with
-
-
-// 2. Create your `onSubmit` event for getting the user's search term
-
-
-// 3. Create your `fetch` request that is called after a submission
-
-
-// 4. Create a way to append the fetch results to your page
-
 
 // 5. Create a way to listen for a click that will play the song in the audio play
 
@@ -40,7 +25,7 @@ function fetchData(query){
         }
         response.json().then(function(data){
           console.log("First artist is: ",data[0]);
-          let newURL = data[0].uri + "/tracks.json?client_id="+clientID;
+          let newURL = data[0].uri + "/tracks.json?client_id="+clientID+"&limit=30";
           fetch(newURL).then(
             function(tracksResponse){
               if(tracksResponse.status !== 200){
@@ -72,7 +57,6 @@ function addTracks(artist, tracksArray){
   console.log("Artist received:",artist);
   console.log("Tracks to add:",tracksArray);
   let resultsContainer = document.querySelector(".results");
-  console.log("childNodes[0] when nothing is there...",resultsContainer.childNodes[0]);
 
   //Removes all previous search results display
   while( resultsContainer.hasChildNodes() ){
@@ -80,7 +64,7 @@ function addTracks(artist, tracksArray){
   }
 
   let heading = document.createElement("h4");
-  heading.textContent = "Search Results: " + query;
+  heading.textContent = "Search Results: " + query + " (" + tracksArray.length + " results displayed)";
   resultsContainer.appendChild(heading);
 
   let ul = document.createElement("ul");
@@ -88,9 +72,33 @@ function addTracks(artist, tracksArray){
   //Add Track listings
   for(let i = 0; i < tracksArray.length; i++){
     let li = document.createElement("li");
-    li.textContent = tracksArray[i].title;
-    ul.appendChild(li);
+
+    let div = document.createElement("div");
+    div.id = tracksArray[i].title;
+    div.addEventListener("click", function(){
+      playSong(event.target.id);
+    });
+
+
+    let img = document.createElement("img");
+    img.src = tracksArray[i].artwork_url;
+    div.appendChild(img);
+
+    let h4 = document.createElement("h4");
+    h4.textContent = tracksArray[i].title;
+    div.appendChild(h4);
+
+    let h5 = document.createElement("h5");
+    h5.textContent = artist.full_name;
+    div.appendChild(h5);
+
+    li.appendChild(div);
+    resultsContainer.appendChild(li);
   }
 
   resultsContainer.appendChild(ul);
+}
+
+function playSong(title){
+  console.log("You want to play the song", title);
 }
