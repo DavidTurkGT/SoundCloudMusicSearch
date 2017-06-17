@@ -1,9 +1,82 @@
+/*
+Color pallete:
+Orange: #FF5500
+Silver: #F2F2F2
+Grey: #333333
+Purple Grey: #4a4054
+Fushia: #B25893
+Top Orange: #FF7600
+Bottom Orange: #FF3500
+*/
+
+*{
+  box-sizing: border-box;
+  font-family: sans-serif;
+  font-family: 'Amatic SC', cursive;
+}
+
+h1{
+  font-size: 3.5em;
+  /*font-family: 'Pacifico', cursive;*/
+  font-family: 'Amatic SC', cursive;
+}
+
 body {
-  background-color: #60d9f1;
+  background: linear-gradient(#FF7600, #ff3500) no-repeat center center fixed;
+  background-size:cover;
+}
+
+header{
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background-color: #333;
+  width: inherit;
+  margin: auto;
+  text-align: center;
+  color: #F2F2F2;
+  padding-bottom: 2rem;
+}
+
+.container{
+  width: 90vw;
+  margin: auto;
+  background-color: #333;
+  padding: 1rem 0;
+  box-shadow: -6px -3px 10px rgba(0,0,0,.5);
+  border-radius: 15px;
+}
+
+.artist-results, .tracks-results{
+  background: radial-gradient(#4a4054, #3c3642, #333, #333);
+  margin-top: 1rem;
+}
+
+.artist-container, .track-container{
+  padding: 0.5rem;
+  border-radius: 50%;
+  padding: 2rem;
+  font-size: 1.25em;
+}
+
+.artist-container{
+  border-radius: 50%;
+  padding: 2rem;
+}
+
+.results{
+  margin-top: 5rem;
+  z-index: 1;
+  padding: 0 1rem;
+  color: #F2F2F2;
+}
+
+.artist-container img{
+  border-radius: 100%;
 }
 
 li div{
-  border: 1px solid;
+  /*border: 1px solid;*/
 }
 
 li div:hover{
@@ -25,9 +98,51 @@ ul{
   overflow-x: scroll;
   list-style: none;
   text-align: center;
+  margin-bottom: 2rem;
 }
 
-li {
-    margin: 0.25rem;
-    padding: 0 0.25rem;
+a{
+  text-decoration: none;
+  color: #FF5500;
+}
+
+a:hover{
+  text-decoration: underline;
+}
+
+.selected{
+  box-shadow: 0px 10px 10px #FF5500;
+}
+
+.selected audio{
+  margin-top: 1rem;
+}
+
+input#query {
+    width: 50vw;
+    padding: 1rem;
+    border-radius: 15px;
+    font-size: 1.5em;
+}
+
+
+form.search-form {
+    margin-top: 3rem;
+}
+
+h3 {
+    font-size: 2em;
+    font-weight: 100;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+p {
+    font-size: 1.5em;
+    margin-top:0;
+    padding-top:0;
+}
+
+h4{
+  margin:0.5rem;
 }
