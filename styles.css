@@ -35,7 +35,6 @@ header{
   margin: auto;
   text-align: center;
   color: #F2F2F2;
-  padding-bottom: 2rem;
 }
 
 .container{
@@ -65,7 +64,7 @@ header{
 }
 
 .results{
-  margin-top: 5rem;
+  margin-top: -2rem;
   z-index: 1;
   padding: 0 1rem;
   color: #F2F2F2;
@@ -108,6 +107,7 @@ a{
 
 a:hover{
   text-decoration: underline;
+  cursor: default;
 }
 
 .selected{
@@ -127,7 +127,7 @@ input#query {
 
 
 form.search-form {
-    margin-top: 3rem;
+  margin: 3rem 0;
 }
 
 h3 {
@@ -145,4 +145,31 @@ p {
 
 h4{
   margin:0.5rem;
+}
+
+#track-foot {
+    text-align: center;
+    font-size: 1.2em;
+}
+
+#track-foot:hover{
+  color: #FF5500;
+  text-decoration: underline;
+  cursor: default;
+}
+
+footer {
+  color: white;
+  padding: 0 4rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.no-results {
+    text-align: center;
+    font-size: 2em;
+}
+
+input:focus{
+  outline: none;
 }

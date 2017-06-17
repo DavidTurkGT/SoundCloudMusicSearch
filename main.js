@@ -78,6 +78,13 @@ function addArtists(artistArray){
 
   let ul = document.createElement("ul");
 
+  if(!artistArray.length){
+    let h4 = document.createElement("h4");
+    h4.classList.add("no-results");
+    h4.textContent = "No Results Found";
+    artistResults.appendChild(h4);
+  }
+
   for(let i = 0; i < artistArray.length; i++){
     let li = document.createElement("li");
 
@@ -88,7 +95,9 @@ function addArtists(artistArray){
     div.addEventListener("click", function(event){
       console.log("Going to fetch tracks for: ");
       console.log(this.id);
+      turnSelectedOn(this, ul);
       fetchTracks(this.id);
+      window.location.hash="bottom";
     })
 
     let img = document.createElement("img");
@@ -103,6 +112,7 @@ function addArtists(artistArray){
     let a = document.createElement("a");
     a.href = artistArray[i].permalink_url;
     a.textContent = "SoundCloud Page";
+    a.target = "_blank";
     div.appendChild(a);
 
     li.appendChild(div);
@@ -133,6 +143,14 @@ function addTracks(tracksArray){
   trackResults.appendChild(p);
 
   let ul = document.createElement("ul");
+  ul.id="tracks";
+
+  if(!tracksArray.length){
+    let h4 = document.createElement("h4");
+    h4.classList.add("no-results");
+    h4.textContent = "No Results Found";
+    trackResults.appendChild(h4);
+  }
 
   for(let i = 0; i < tracksArray.length; i++){
     let li = document.createElement("li");
@@ -143,7 +161,8 @@ function addTracks(tracksArray){
     div.addEventListener("click", function(event){
       console.log("Going to play the song: ");
       console.log(this.id);
-      playSong(this.id);
+      turnSelectedOn(this, ul);
+      playSong(this);
     })
 
     let img = document.createElement("img");
@@ -158,21 +177,46 @@ function addTracks(tracksArray){
     let a = document.createElement("a");
     a.href = tracksArray[i].permalink_url;
     a.textContent = "See Track on SoundCloud";
+    a.target = "_blank";
     div.appendChild(a);
+
+    let audioPlayer = document.createElement("audio");
+    div.appendChild(audioPlayer);
 
     li.appendChild(div);
 
     ul.appendChild(li);
   }
   trackResults.appendChild(ul);
+  let foot = document.createElement("p");
+  foot.textContent = "Scroll up to select a different artist"
+  foot.id = "track-foot";
+  foot.addEventListener("click",function(event){
+    let artistResults = document.querySelector(".artist-results");
+    artistResults.scrollIntoView(false);
+  })
+  trackResults.appendChild(foot);
+  trackResults.scrollIntoView(false);
 }
 
-function playSong(song_URL){
+function playSong(song_div){
+  //Turn off other audio players
+  let all_tracks = document.querySelectorAll(".track-container");
+  console.log("all_tracks");
+  console.log(all_tracks);
+  all_tracks.forEach(function(div){
+    console.log("audio player");
+    console.log(div.childNodes[3]);
+    div.childNodes[3].controls=false;
+    div.childNodes[3].pause();
+  });
+
   let clientID = "8538a1744a7fdaa59981232897501e04";
 
   console.log("Attempting to play a song from:");
-  console.log(song_URL);
-  let audioPlayer = document.querySelector("audio");
+  console.log(song_div);
+  let song_URL = song_div.id;
+  let audioPlayer = song_div.childNodes[3];
   console.log(audioPlayer);
   fetch(song_URL+"?client_id="+clientID).then(
     function(response){
@@ -183,9 +227,23 @@ function playSong(song_URL){
       console.log(response.url);
       audioPlayer.src = response.url;
       audioPlayer.play();
+      audioPlayer.controls = true;
+      console.log("The audio player");
+      console.log(audioPlayer);
     },
     function(reject){
       console.log("API request rejected");
     }
   )
+}
+
+function turnSelectedOn(div, list){
+  for(let i = 0; i < list.childNodes.length; i++){
+    let li = list.childNodes[i];
+    let artistContainer = li.childNodes[0];
+    if(artistContainer.classList[1] === "selected"){
+      artistContainer.classList.toggle("selected");
+    }
+  }
+  div.classList.toggle("selected");
 }
