@@ -207,7 +207,7 @@ function playSong(song_div){
   all_tracks.forEach(function(div){
     console.log("audio player");
     console.log(div.childNodes[3]);
-    div.childNodes[3].controls=false;
+    // div.childNodes[3].controls=false;
     div.childNodes[3].pause();
   });
 
@@ -227,7 +227,7 @@ function playSong(song_div){
       console.log(response.url);
       audioPlayer.src = response.url;
       audioPlayer.play();
-      audioPlayer.controls = true;
+      // audioPlayer.controls = true;
       console.log("The audio player");
       console.log(audioPlayer);
     },
